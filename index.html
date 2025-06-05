@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)file:///Users/ikretteis/Library/Caches/Spark%20Desktop/messagesData/4/50026/Module%202.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Agendamento Inteligente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-1 { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .circle-2 { width: 120px; height: 120px; top: 60%; right: 15%; animation-delay: 2s; }
+        .circle-3 { width: 60px; height: 60px; bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .main-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .main-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #000000, #333333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .maria-story {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maria-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .maria-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .maria-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .maria-text {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #000000;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-title {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-desc {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .value-prop {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .scheduling-interface {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scheduling-header {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .scheduling-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .scheduling-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .scheduling-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .scheduling-body {
+            padding: 1.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .schedule-step {
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e2e8f0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .schedule-step.active {
+            border-left-color: #000000;
+        }
+
+        .schedule-step::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .schedule-step.active::before {
+            background: #000000;
+        }
+
+        .step-time {
+            font-size: 0.8rem;
+            color: #718096;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-suggestion {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border-left: 3px solid #000000;
+        }
+
+        .ai-label {
+            font-size: 0.75rem;
+            color: #000000;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .coordination-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .department-card {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .dept-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .dept-status {
+            font-size: 0.8rem;
+            color: #4a5568;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .available { background: #48bb78; }
+        .busy { background: #ed8936; }
+        .coordinating { background: #4299e1; }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .main-title {
+                font-size: 1.6rem;
+            }
+            
+            .hero-section {
+                padding: 1rem;
+            }
+
+            .coordination-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
+    <div class="hero-section">
+        <div class="main-container">
+            <div class="content-section">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <img src="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 200 60&#39;&gt;&lt;text x=&#39;10&#39; y=&#39;35&#39; font-family=&#39;Arial, sans-serif&#39; font-size=&#39;20&#39; font-weight=&#39;bold&#39; fill=&#39;%23000000&#39;&gt;ecosymb&lt;/text&gt;&lt;text x=&#39;110&#39; y=&#39;35&#39; font-family=&#39;Arial, sans-serif&#39; font-size=&#39;20&#39; font-weight=&#39;bold&#39; fill=&#39;%23000000&#39;&gt;[CARE]&lt;/text&gt;&lt;/svg&gt;" alt="ecosymb[CARE]" style="height: 40px;">
+                    <div class="module-badge">Módulo 2 de 8</div>
+                </div>
+                <h1 class="main-title">Agendamento Inteligente</h1>
+                <h2 class="subtitle">Agendamento Que Pensa Três Passos à Frente</h2>
+                
+                <div class="maria-story">
+                    <div class="maria-content">
+                        <h3 class="maria-title">🎯 Maria Precisa de um Especialista</h3>
+                        <p class="maria-text">Nossa solução não apenas marca consultas - ela orquestra jornadas de cuidado completas, antecipando necessidades e coordenando equipes.</p>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-title">🧠 Agendamento Preditivo</div>
+                        <div class="feature-desc">Baseado em protocolos de tratamento e histórico médico</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🔄 Coordenação Automática</div>
+                        <div class="feature-desc">Sincroniza equipe de cuidado entre departamentos</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">⚡ Reagendamento Dinâmico</div>
+                        <div class="feature-desc">Previne atrasos em cascata com replanejamento inteligente</div>
+                    </div>
+                </div>
+
+                <div class="value-prop">
+                    <strong>Transforme o caos do agendamento em orquestração perfeita do cuidado.</strong> Cada consulta se torna parte de uma jornada inteligente e coordenada.
+                </div>
+            </div>
+
+            <div class="scheduling-interface">
+                <div class="scheduling-header">
+                    <div class="scheduling-avatar">📅</div>
+                    <div class="scheduling-info">
+                        <h3>Orquestrador IA - ecosymb[CARE]</h3>
+                        <p>Coordenando jornada de Maria Silva</p>
+                    </div>
+                </div>
+                
+                <div class="scheduling-body">
+                    <div class="schedule-step active">
+                        <div class="step-time">Hoje - 14:00</div>
+                        <div class="step-title">Consulta Neurologia - Dr. Silva</div>
+                        <div class="step-desc">Avaliação inicial das dores de cabeça</div>
+                        <div class="ai-suggestion">
+                            <div class="ai-label">IA Prevê</div>
+                            <div>Possível necessidade de ressonância magnética</div>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-step active">
+                        <div class="step-time">Quinta - 09:30</div>
+                        <div class="step-title">Ressonância Magnética</div>
+                        <div class="step-desc">Já agendada automaticamente com base no protocolo</div>
+                        <div class="ai-suggestion">
+                            <div class="ai-label">Coordenação Automática</div>
+                            <div>Radiologia notificada, preparo de contraste confirmado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-step">
+                        <div class="step-time">Segunda - 15:00</div>
+                        <div class="step-title">Retorno Neurologia</div>
+                        <div class="step-desc">Discussão dos resultados e plano de tratamento</div>
+                        <div class="ai-suggestion">
+                            <div class="ai-label">Reagendamento Inteligente</div>
+                            <div>Detectou conflito do Dr. Silva - reagendado automaticamente</div>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-step">
+                        <div class="step-time">A definir</div>
+                        <div class="step-title">Fisioterapia (Se necessário)</div>
+                        <div class="step-desc">Pré-agendado baseado em protocolo de ergonomia</div>
+                    </div>
+
+                    <div class="coordination-panel">
+                        <div class="department-card">
+                            <div class="dept-name">
+                                <span class="status-dot available"></span>
+                                Neurologia
+                            </div>
+                            <div class="dept-status">Dr. Silva disponível</div>
+                        </div>
+                        
+                        <div class="department-card">
+                            <div class="dept-name">
+                                <span class="status-dot coordinating"></span>
+                                Radiologia
+                            </div>
+                            <div class="dept-status">Slot confirmado ✓</div>
+                        </div>
+                        
+                        <div class="department-card">
+                            <div class="dept-name">
+                                <span class="status-dot available"></span>
+                                Fisioterapia
+                            </div>
+                            <div class="dept-status">Standby inteligente</div>
+                        </div>
+                        
+                        <div class="department-card">
+                            <div class="dept-name">
+                                <span class="status-dot busy"></span>
+                                Farmácia
+                            </div>
+                            <div class="dept-status">Medicações em análise</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureItems = document.querySelectorAll('.feature-item');
+            const departmentCards = document.querySelectorAll('.department-card');
+            
+            // Feature items hover effect
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+            
+            // Department cards hover effect
+            departmentCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Simulate dynamic scheduling updates
+            setTimeout(() => {
+                const steps = document.querySelectorAll('.schedule-step');
+                if (steps.length > 1) {
+                    steps[1].classList.add('active');
+                }
+            }, 2000);
+
+            setTimeout(() => {
+                const radiologyCard = document.querySelector('.department-card:nth-child(2) .dept-status');
+                if (radiologyCard) {
+                    radiologyCard.textContent = 'Slot confirmado ✓';
+                }
+            }, 3000);
+        });
+    </script>
+
+</body></html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)file:///Users/ikretteis/Library/Caches/Spark%20Desktop/messagesData/4/50026/Module%201.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Front Door - Entrada do Paciente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-1 { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .circle-2 { width: 120px; height: 120px; top: 60%; right: 15%; animation-delay: 2s; }
+        .circle-3 { width: 60px; height: 60px; bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .main-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .main-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #000000, #333333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .maria-story {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maria-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .maria-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .maria-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .maria-text {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #000000;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-title {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-desc {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .value-prop {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .chat-interface {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chat-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .chat-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .chat-body {
+            padding: 1.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .ai-avatar {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+        }
+
+        .user-avatar {
+            background: linear-gradient(135deg, #666666, #999999);
+            color: white;
+        }
+
+        .message-content {
+            background: #f7fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            max-width: 70%;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #000000, #333333);
+            color: white;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border-radius: 18px;
+            width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e0;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .channels-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+        }
+
+        .channel-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .channel-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .channel-label {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .whatsapp { background: #666666; }
+        .website { background: #333333; }
+        .phone { background: #000000; }
+        .app { background: #444444; }
+        .instagram { background: #555555; }
+        .email { background: #777777; }
+        .sms { background: #888888; }
+        .telegram { background: #999999; }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .main-title {
+                font-size: 1.6rem;
+            }
+            
+            .hero-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
+    <div class="hero-section">
+        <div class="main-container">
+            <div class="content-section">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <img src="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 200 60&#39;&gt;&lt;text x=&#39;10&#39; y=&#39;35&#39; font-family=&#39;Arial, sans-serif&#39; font-size=&#39;20&#39; font-weight=&#39;bold&#39; fill=&#39;%2332CD32&#39;&gt;ecosymb&lt;/text&gt;&lt;text x=&#39;110&#39; y=&#39;35&#39; font-family=&#39;Arial, sans-serif&#39; font-size=&#39;20&#39; font-weight=&#39;bold&#39; fill=&#39;%23228B22&#39;&gt;[CARE]&lt;/text&gt;&lt;/svg&gt;" alt="ecosymb[CARE]" style="height: 40px;">
+                    <div class="module-badge">Módulo 1 de 8</div>
+                </div>
+                <h1 class="main-title">Área de Atendimento ao Cliente</h1>
+                <h2 class="subtitle">Primeiras Impressões Que Nunca Esquecem</h2>
+                
+                <div class="maria-story">
+                    <div class="maria-content">
+                        <h3 class="maria-title">👋 Conheça Maria</h3>
+                        <p class="maria-text">Como 67% dos pacientes, ela está ansiosa na primeira consulta. Mas diferente das clínicas tradicionais, nossa solução lembra de tudo sobre ela desde o primeiro dia.</p>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-title">🤖 Conversational Front Door</div>
+                        <div class="feature-desc">Entrada conversacional inteligente que entende linguagem natural</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">📱 Omnichannel</div>
+                        <div class="feature-desc">Experiência unificada em todos os canais - WhatsApp, site, app, telefone</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">⏰ 24/7</div>
+                        <div class="feature-desc">Atendimento e triagem inteligente disponível a qualquer hora</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🎯 Triagem Inteligente</div>
+                        <div class="feature-desc">Aprende com cada interação e cria perfis instantâneos</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">⚡ Zero Fila de Espera</div>
+                        <div class="feature-desc">Atendimento imediato sem tempo perdido</div>
+                    </div>
+                </div>
+
+                <div class="value-prop">
+                    <strong>Enquanto outras clínicas te tratam como um número, nossa solução te trata como um indivíduo desde o primeiro olá</strong> - quando você quiser, onde você estiver, do jeito que preferir falar.
+                </div>
+            </div>
+
+            <div class="chat-interface">
+                <div class="chat-header">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-info">
+                        <h3>IA Médica - ecosymb[CARE]</h3>
+                        <p>Online • Atendimento 24/7</p>
+                    </div>
+                </div>
+                
+                <div class="chat-body">
+                    <div class="message">
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                            Olá! Sou a assistente inteligente da ecosymb[CARE]. Como posso ajudá-la hoje?
+                        </div>
+                    </div>
+                    
+                    <div class="message user">
+                        <div class="message-avatar user-avatar">👩</div>
+                        <div class="message-content">
+                            Oi, sou Maria. Estou com dores de cabeça frequentes e gostaria de agendar uma consulta.
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                            Olá Maria! Entendo sua preocupação com as dores de cabeça. Para oferecer o melhor cuidado, me conte: há quanto tempo você tem essas dores e qual a intensidade de 1 a 10?
+                        </div>
+                    </div>
+                    
+                    <div class="message user">
+                        <div class="message-avatar user-avatar">👩</div>
+                        <div class="message-content">
+                            Começou há umas 3 semanas, intensidade 7. Piora à tarde e tenho trabalhado muito no computador.
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                            Perfeito, Maria. Com base no seu relato, vou agendar com Dr. Silva, especialista em neurologia. Que tal quinta às 14h? Já criei seu perfil e todas essas informações estarão disponíveis para ele.
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                            ✅ Consulta agendada! Enviei os detalhes no seu WhatsApp. Até quinta, Maria!
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="channels-showcase">
+                    <div>
+                        <div class="channel-icon whatsapp" title="WhatsApp">●</div>
+                        <div class="channel-label">WhatsApp</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon website" title="Website">■</div>
+                        <div class="channel-label">Website</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon phone" title="Telefone">◆</div>
+                        <div class="channel-label">Telefone</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon app" title="App Mobile">▲</div>
+                        <div class="channel-label">App Mobile</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon instagram" title="Instagram">◯</div>
+                        <div class="channel-label">Instagram</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon email" title="Email">✉</div>
+                        <div class="channel-label">Email</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon sms" title="SMS">▬</div>
+                        <div class="channel-label">SMS</div>
+                    </div>
+                    <div>
+                        <div class="channel-icon telegram" title="Telegram">►</div>
+                        <div class="channel-label">Telegram</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureItems = document.querySelectorAll('.feature-item');
+            const channelIcons = document.querySelectorAll('.channel-icon');
+            
+            // Feature items hover effect
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+            
+            // Channel icons click effect
+            channelIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // Simulate typing animation
+            const typingIndicator = document.querySelector('.typing-indicator');
+            if (typingIndicator) {
+                setTimeout(() => {
+                    typingIndicator.parentElement.innerHTML = `
+                        <div class="message-avatar ai-avatar">🤖</div>
+                        <div class="message-content">
+                            ✅ Consulta agendada! Enviei os detalhes no seu WhatsApp. Até quinta, Maria!
+                        </div>
+                    `;
+                }, 3000);
+            }
+        });
+    </script>
+
+</body></html>
